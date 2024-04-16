@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{0f3114e4-2e68-46bf-a58b-994700b7e087}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	bMotorEnable, bVelocity1, bVelocity2, bHalt	AT %I* 	: BOOL;
+	bLED1, bLED2, bLED3, bLED4					AT %Q*	: BOOL;
+	xEnable												: BOOL;
+	
+	BottomRightMotor			: AXIS_REF;
+	fbMC_Power 					: MC_Power;
+	fbMC_Velocity				: MC_MoveVelocity;
+	fbMC_Halt					: MC_Halt;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bMotorEnable THEN
+	xEnable := TRUE;
+	bLED1	:= TRUE; //turns on LED above switch
+ELSE
+	xEnable := FALSE;
+	bLED1	:= FALSE;//turns on LED above switch
+END_IF
+
+fbMC_Power(
+	Axis:=BottomRightMotor,
+	Enable:=xEnable,
+	Enable_Positive:=xEnable,
+	Enable_Negative:=xEnable,
+	Override:=100.0);
+	
+fbMC_Velocity(
+	Axis:=BottomRightMotor,
+	Execute:=bVelocity1,
+	Velocity:= 100.0);	
+	
+fbMC_Velocity(
+	Axis:=BottomRightMotor,
+	Execute:=bVelocity2,
+	Velocity:= 400.0);	
+	
+fbMC_Halt(
+	Axis:=BottomRightMotor,
+	Execute:= bHalt);
+	
+	
+//--------------------
+//  LEDs
+IF bVelocity1 THEN
+	bLED2	:= TRUE; //turns on LED above switch
+ELSE
+	bLED2	:= FALSE;//turns on LED above switch
+END_IF
+
+IF bVelocity2 THEN
+	bLED3	:= TRUE; //turns on LED above switch
+ELSE
+	bLED3	:= FALSE;//turns on LED above switch
+END_IF
+
+IF bHalt THEN
+	bLED4	:= TRUE; //turns on LED above switch
+ELSE
+	bLED4	:= FALSE;//turns on LED above switch
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="12" Count="5" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="22" Count="5" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="30" Count="2" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="35" Count="2" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="43" Count="1" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="45" Count="2" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="54" Count="1" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="59" Count="4" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="65" Count="4" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="50" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
