@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{91eeece6-13fe-40fb-bcfb-5e983e25ddff}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	bMotorEnable, bVelocity1, bVelocity2, bHalt	AT %I* 	: BOOL;
+	bLED1, bLED2, bLED3, bLED4					AT %Q*	: BOOL;
+	xEnable												: BOOL;
+	
+	BottomRightMotor			: AXIS_REF;
+	fbMC_Power 					: MC_Power;
+	fbMC_Velocity				: MC_MoveVelocity;
+	fbMC_Halt					: MC_Halt;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bMotorEnable THEN
+	xEnable := TRUE;
+	bLED1	:= TRUE; //turns on LED above switch
+ELSE
+	xEnable := FALSE;
+	bLED1	:= FALSE;//turns on LED above switch
+END_IF
+
+fbMC_Power(
+	Axis:=BottomRightMotor,
+	Enable:=xEnable,
+	Enable_Positive:=xEnable,
+	Enable_Negative:=xEnable,
+	Override:=100.0);
+	
+fbMC_Velocity(
+	Axis:=BottomRightMotor,
+	Execute:=bVelocity1,
+	Velocity:= 100.0);	
+	
+fbMC_Velocity(
+	Axis:=BottomRightMotor,
+	Execute:=bVelocity2,
+	Velocity:= 400.0);	
+	
+fbMC_Halt(
+	Axis:=BottomRightMotor,
+	Execute:= bHalt);
+	
+	
+//--------------------
+//  LEDs
+IF bVelocity1 THEN
+	bLED2	:= TRUE; //turns on LED above switch
+ELSE
+	bLED2	:= FALSE;//turns on LED above switch
+END_IF
+
+IF bVelocity2 THEN
+	bLED3	:= TRUE; //turns on LED above switch
+ELSE
+	bLED3	:= FALSE;//turns on LED above switch
+END_IF
+
+IF bHalt THEN
+	bLED4	:= TRUE; //turns on LED above switch
+ELSE
+	bLED4	:= FALSE;//turns on LED above switch
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="14" Count="47" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
