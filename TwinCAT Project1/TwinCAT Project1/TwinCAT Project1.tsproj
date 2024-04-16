@@ -2170,8 +2170,8 @@ External Setpoint Generation:
 			</NC>
 		</Motion>
 		<Plc>
-			<Project GUID="{206DE748-59CA-4C74-B517-0ED280C13AD2}" Name="PLCproject" PrjFilePath="PLCproject\PLCproject.plcproj" TmcFilePath="PLCproject\PLCproject.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{9ADF0C6C-3C7A-DCD2-2283-DD22E6B955C2}">
+			<Project GUID="{206DE748-59CA-4C74-B517-0ED280C13AD2}" Name="PLCproject" PrjFilePath="PLCproject\PLCproject.plcproj" TmcFilePath="PLCproject\PLCproject.tmc" ReloadTmc="true" AmsPort="851" TargetArchiveSettings="#x0000" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLCproject\PLCproject.tmc" TmcHash="{13EE1DEE-C466-96D6-80AB-EB52651267FF}">
 					<Name>PLCproject Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -2212,12 +2212,12 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.BottomRightMotor.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
 							<Name>MAIN.bLED4</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.BottomRightMotor.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
 					<Contexts>
